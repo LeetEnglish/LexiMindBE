@@ -20,7 +20,7 @@ public class FlashcardDto {
     private String phonetic;
     private String cardType;
     private Long documentId;
-    private Double easeFactor;
+    private java.math.BigDecimal easeFactor;
     private Integer interval;
     private Integer repetitions;
     private LocalDateTime nextReviewDate;

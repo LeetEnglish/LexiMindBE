@@ -42,7 +42,7 @@ public class Flashcard extends BaseEntity {
     // SRS (Spaced Repetition System) fields - SM-2 algorithm
     @Column(name = "ease_factor", nullable = false)
     @Builder.Default
-    private Double easeFactor = 2.5;
+    private java.math.BigDecimal easeFactor = new java.math.BigDecimal("2.5");
 
     @Column(nullable = false)
     @Builder.Default
@@ -86,7 +86,9 @@ public class Flashcard extends BaseEntity {
         }
 
         // Update ease factor
-        easeFactor = Math.max(1.3, easeFactor + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02)));
+        double currentEase = easeFactor.doubleValue();
+        double newEase = Math.max(1.3, currentEase + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02)));
+        easeFactor = java.math.BigDecimal.valueOf(newEase);
 
         // Calculate interval
         if (repetitions == 0) {
@@ -96,7 +98,7 @@ public class Flashcard extends BaseEntity {
         } else if (repetitions == 2) {
             interval = 6;
         } else {
-            interval = (int) Math.round(interval * easeFactor);
+            interval = (int) Math.round(interval * easeFactor.doubleValue());
         }
 
         // Set next review date

@@ -35,8 +35,7 @@ public class LearningDashboardService {
 
         // Documents progress
         long totalDocs = documentRepository.countByUser(user);
-        long completedDocs = documentRepository.countByUserAndStatusAndCompletedLessonsEquals(
-                user, Document.ProcessingStatus.COMPLETED);
+        long completedDocs = documentRepository.countCompletedByUser(user);
 
         // Lessons progress
         long totalLessons = lessonRepository.countByDocumentUser(user);
@@ -47,7 +46,7 @@ public class LearningDashboardService {
 
         // Test stats
         long totalTests = testAttemptRepository.countByUser(user);
-        Double avgScore = testAttemptRepository.findAverageScoreByUser(user);
+        Double avgScore = testAttemptRepository.getAverageScoreByUser(user);
 
         // Chat stats
         long chatSessions = chatSessionRepository.countByUserAndStatus(

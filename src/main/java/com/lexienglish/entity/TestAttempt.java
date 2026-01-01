@@ -36,13 +36,13 @@ public class TestAttempt extends BaseEntity {
     private AttemptStatus status = AttemptStatus.IN_PROGRESS;
 
     @Column(name = "total_score")
-    private Double totalScore;
+    private java.math.BigDecimal totalScore;
 
     @Column(name = "max_score")
     private Integer maxScore;
 
     @Column(name = "percentage_score")
-    private Double percentageScore;
+    private java.math.BigDecimal percentageScore;
 
     @Column(name = "time_spent_seconds")
     private Integer timeSpentSeconds;
@@ -53,16 +53,16 @@ public class TestAttempt extends BaseEntity {
 
     // Skill-specific scores for IELTS-style tests
     @Column(name = "reading_score")
-    private Double readingScore;
+    private java.math.BigDecimal readingScore;
 
     @Column(name = "listening_score")
-    private Double listeningScore;
+    private java.math.BigDecimal listeningScore;
 
     @Column(name = "writing_score")
-    private Double writingScore;
+    private java.math.BigDecimal writingScore;
 
     @Column(name = "speaking_score")
-    private Double speakingScore;
+    private java.math.BigDecimal speakingScore;
 
     @Column(name = "feedback", columnDefinition = "TEXT")
     private String feedback;
@@ -73,15 +73,15 @@ public class TestAttempt extends BaseEntity {
 
     public void calculateScore() {
         if (responses == null || responses.isEmpty()) {
-            this.totalScore = 0.0;
-            this.percentageScore = 0.0;
+            this.totalScore = java.math.BigDecimal.ZERO;
+            this.percentageScore = java.math.BigDecimal.ZERO;
             return;
         }
 
-        double earned = responses.stream()
+        java.math.BigDecimal earned = responses.stream()
                 .filter(r -> r.getScore() != null)
-                .mapToDouble(UserResponse::getScore)
-                .sum();
+                .map(UserResponse::getScore)
+                .reduce(java.math.BigDecimal.ZERO, java.math.BigDecimal::add);
 
         int max = responses.stream()
                 .mapToInt(r -> r.getQuestion().getPoints())
@@ -89,6 +89,6 @@ public class TestAttempt extends BaseEntity {
 
         this.totalScore = earned;
         this.maxScore = max;
-        this.percentageScore = max > 0 ? (earned / max) * 100 : 0;
+        this.percentageScore = max > 0 ? earned.multiply(java.math.BigDecimal.valueOf(100)).divide(java.math.BigDecimal.valueOf(max), 2, java.math.RoundingMode.HALF_UP) : java.math.BigDecimal.ZERO;
     }
 }

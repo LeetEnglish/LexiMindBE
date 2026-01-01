@@ -18,4 +18,8 @@ public interface LessonRepository extends JpaRepository<Lesson, Long> {
     long countByDocument(Document document);
 
     long countByDocumentAndCompletedTrue(Document document);
+
+    long countByDocumentUser(com.lexienglish.entity.User user);
+
+    long countByDocumentUserAndCompletedTrue(com.lexienglish.entity.User user);
 }

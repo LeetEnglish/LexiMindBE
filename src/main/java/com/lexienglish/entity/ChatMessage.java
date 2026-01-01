@@ -50,7 +50,7 @@ public class ChatMessage {
     private String correctedText; // AI-corrected version of user text
 
     @Column(name = "improvement_score")
-    private Double improvementScore; // 0-10 score for improvement areas
+    private java.math.BigDecimal improvementScore; // 0-10 score for improvement areas
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)

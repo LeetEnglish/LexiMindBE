@@ -54,7 +54,7 @@ public class SpeakingScoringService {
         }
 
         if (transcript == null || transcript.trim().isEmpty()) {
-            response.setScore(0.0);
+            response.setScore(java.math.BigDecimal.ZERO);
             response.setAiFeedback("No speaking response provided.");
             return response;
         }
@@ -68,10 +68,10 @@ public class SpeakingScoringService {
         double grammarScore = evaluateGrammar(transcript);
 
         // Set component scores
-        response.setPronunciationScore(pronunciationScore);
-        response.setFluencyScore(fluencyScore);
-        response.setVocabularyScore(vocabularyScore);
-        response.setGrammarScore(grammarScore);
+        response.setPronunciationScore(java.math.BigDecimal.valueOf(pronunciationScore));
+        response.setFluencyScore(java.math.BigDecimal.valueOf(fluencyScore));
+        response.setVocabularyScore(java.math.BigDecimal.valueOf(vocabularyScore));
+        response.setGrammarScore(java.math.BigDecimal.valueOf(grammarScore));
 
         // Calculate overall score (0-10 scale, similar to IELTS 9-band)
         double overallScore = (pronunciationScore * PRONUNCIATION_WEIGHT +
@@ -81,7 +81,7 @@ public class SpeakingScoringService {
 
         // Convert to points based on question points value
         double maxPoints = response.getQuestion().getPoints().doubleValue();
-        response.setScore((overallScore / 10.0) * maxPoints);
+        response.setScore(java.math.BigDecimal.valueOf((overallScore / 10.0) * maxPoints));
 
         // Generate feedback
         response.setAiFeedback(generateFeedback(pronunciationScore, fluencyScore,

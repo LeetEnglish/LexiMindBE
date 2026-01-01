@@ -12,16 +12,16 @@ import lombok.NoArgsConstructor;
 public class TestAnalyticsDto {
     private long totalAttempts;
     private long completedAttempts;
-    private Double averageScore;
-    private Double bestScore;
+    private java.math.BigDecimal averageScore;
+    private java.math.BigDecimal bestScore;
     private long ieltsCompleted;
     private long toeflCompleted;
     private long satCompleted;
     private long actCompleted;
 
     // Skill-specific analytics
-    private Double avgReadingScore;
-    private Double avgListeningScore;
-    private Double avgWritingScore;
-    private Double avgSpeakingScore;
+    private java.math.BigDecimal avgReadingScore;
+    private java.math.BigDecimal avgListeningScore;
+    private java.math.BigDecimal avgWritingScore;
+    private java.math.BigDecimal avgSpeakingScore;
 }

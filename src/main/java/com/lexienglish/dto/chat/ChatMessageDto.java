@@ -21,7 +21,7 @@ public class ChatMessageDto {
     private String grammarIssues;
     private String vocabularySuggestions;
     private String correctedText;
-    private Double improvementScore;
+    private java.math.BigDecimal improvementScore;
     private LocalDateTime createdAt;
 
     public static ChatMessageDto fromEntity(ChatMessage entity) {

@@ -35,7 +35,7 @@ public class RemoteSpeakingScoringService {
         String transcript = response.getUserAnswer();
 
         if (transcript == null || transcript.trim().isEmpty()) {
-            response.setScore(0.0);
+            response.setScore(java.math.BigDecimal.ZERO);
             response.setAiFeedback("No response provided.");
             return response;
         }
@@ -54,14 +54,14 @@ public class RemoteSpeakingScoringService {
         SpeakingScoringResponse aiResponse = remoteAiService.scoreSpeaking(request);
 
         // Map response to UserResponse entity
-        response.setScore(aiResponse.getOverallScore());
+        response.setScore(java.math.BigDecimal.valueOf(aiResponse.getOverallScore()));
         response.setAiFeedback(aiResponse.getFeedback());
 
         if (aiResponse.getDetails() != null) {
-            response.setPronunciationScore(aiResponse.getDetails().getPronunciationScore());
-            response.setFluencyScore(aiResponse.getDetails().getFluencyScore());
-            response.setVocabularyScore(aiResponse.getDetails().getVocabularyScore());
-            response.setGrammarScore(aiResponse.getDetails().getGrammarScore());
+            response.setPronunciationScore(java.math.BigDecimal.valueOf(aiResponse.getDetails().getPronunciationScore()));
+            response.setFluencyScore(java.math.BigDecimal.valueOf(aiResponse.getDetails().getFluencyScore()));
+            response.setVocabularyScore(java.math.BigDecimal.valueOf(aiResponse.getDetails().getVocabularyScore()));
+            response.setGrammarScore(java.math.BigDecimal.valueOf(aiResponse.getDetails().getGrammarScore()));
         }
 
         // Passing threshold (60%)

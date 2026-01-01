@@ -29,7 +29,7 @@ public class UserResponse extends BaseEntity {
     private Boolean isCorrect;
 
     @Column
-    private Double score;
+    private java.math.BigDecimal score;
 
     @Column(name = "time_spent_seconds")
     private Integer timeSpentSeconds;
@@ -42,26 +42,26 @@ public class UserResponse extends BaseEntity {
     private String aiFeedback;
 
     @Column(name = "grammar_score")
-    private Double grammarScore;
+    private java.math.BigDecimal grammarScore;
 
     @Column(name = "vocabulary_score")
-    private Double vocabularyScore;
+    private java.math.BigDecimal vocabularyScore;
 
     @Column(name = "coherence_score")
-    private Double coherenceScore;
+    private java.math.BigDecimal coherenceScore;
 
     @Column(name = "task_achievement_score")
-    private Double taskAchievementScore;
+    private java.math.BigDecimal taskAchievementScore;
 
     // For speaking
     @Column(name = "audio_response_url")
     private String audioResponseUrl;
 
     @Column(name = "pronunciation_score")
-    private Double pronunciationScore;
+    private java.math.BigDecimal pronunciationScore;
 
     @Column(name = "fluency_score")
-    private Double fluencyScore;
+    private java.math.BigDecimal fluencyScore;
 
     /**
      * Grade a multiple choice or simple answer question
@@ -69,7 +69,7 @@ public class UserResponse extends BaseEntity {
     public void gradeSimpleQuestion() {
         if (question == null || userAnswer == null) {
             this.isCorrect = false;
-            this.score = 0.0;
+            this.score = java.math.BigDecimal.ZERO;
             return;
         }
 
@@ -80,6 +80,6 @@ public class UserResponse extends BaseEntity {
 
         // Case-insensitive comparison, trim whitespace
         this.isCorrect = correct.trim().equalsIgnoreCase(userAnswer.trim());
-        this.score = this.isCorrect ? question.getPoints().doubleValue() : 0.0;
+        this.score = this.isCorrect ? java.math.BigDecimal.valueOf(question.getPoints()) : java.math.BigDecimal.ZERO;
     }
 }

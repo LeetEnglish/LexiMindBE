@@ -38,7 +38,7 @@ public class WritingScoringService {
         String essay = response.getUserAnswer();
 
         if (essay == null || essay.trim().isEmpty()) {
-            response.setScore(0.0);
+            response.setScore(java.math.BigDecimal.ZERO);
             response.setAiFeedback("No response provided.");
             return response;
         }
@@ -52,10 +52,10 @@ public class WritingScoringService {
         double taskAchievementScore = evaluateTaskAchievement(essay, response.getQuestion().getContent());
 
         // Set component scores
-        response.setGrammarScore(grammarScore);
-        response.setVocabularyScore(vocabularyScore);
-        response.setCoherenceScore(coherenceScore);
-        response.setTaskAchievementScore(taskAchievementScore);
+        response.setGrammarScore(java.math.BigDecimal.valueOf(grammarScore));
+        response.setVocabularyScore(java.math.BigDecimal.valueOf(vocabularyScore));
+        response.setCoherenceScore(java.math.BigDecimal.valueOf(coherenceScore));
+        response.setTaskAchievementScore(java.math.BigDecimal.valueOf(taskAchievementScore));
 
         // Calculate overall score (0-10 scale)
         double overallScore = (grammarScore * GRAMMAR_WEIGHT +
@@ -65,7 +65,7 @@ public class WritingScoringService {
 
         // Convert to points based on question points value
         double maxPoints = response.getQuestion().getPoints().doubleValue();
-        response.setScore((overallScore / 10.0) * maxPoints);
+        response.setScore(java.math.BigDecimal.valueOf((overallScore / 10.0) * maxPoints));
 
         // Generate feedback
         response.setAiFeedback(generateFeedback(grammarScore, vocabularyScore,

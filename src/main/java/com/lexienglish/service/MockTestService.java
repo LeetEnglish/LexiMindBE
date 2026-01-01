@@ -220,10 +220,11 @@ public class MockTestService {
 
         long total = testAttemptRepository.countByUser(user);
         long completed = testAttemptRepository.countByUserAndStatus(user, TestAttempt.AttemptStatus.COMPLETED);
-        Double avgScore = testAttemptRepository.getAverageScoreByUser(user);
+        Double avgScoreDouble = testAttemptRepository.getAverageScoreByUser(user);
+        java.math.BigDecimal avgScore = avgScoreDouble != null ? java.math.BigDecimal.valueOf(avgScoreDouble) : null;
 
         List<TestAttempt> topScores = testAttemptRepository.findTopScoresByUser(user, PageRequest.of(0, 1));
-        Double bestScore = topScores.isEmpty() ? null : topScores.get(0).getPercentageScore();
+        java.math.BigDecimal bestScore = topScores.isEmpty() ? null : topScores.get(0).getPercentageScore();
 
         return TestAnalyticsDto.builder()
                 .totalAttempts(total)
@@ -258,9 +259,9 @@ public class MockTestService {
     private void generateFeedback(TestAttempt attempt) {
         StringBuilder feedback = new StringBuilder();
 
-        if (attempt.getPercentageScore() >= 80) {
+        if (attempt.getPercentageScore().compareTo(java.math.BigDecimal.valueOf(80)) >= 0) {
             feedback.append("Excellent performance! ");
-        } else if (attempt.getPercentageScore() >= 60) {
+        } else if (attempt.getPercentageScore().compareTo(java.math.BigDecimal.valueOf(60)) >= 0) {
             feedback.append("Good job! ");
         } else {
             feedback.append("Keep practicing! ");

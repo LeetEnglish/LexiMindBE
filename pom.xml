@@ -1,55 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
+<project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
-    
+
+    <!-- ================================================= -->
+    <!-- Parent MUST use literal version (Maven rule)     -->
+    <!-- ================================================= -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.2.1</version>
         <relativePath/>
     </parent>
-    
+
+    <!-- ================================================= -->
+    <!-- Project Info                                     -->
+    <!-- ================================================= -->
     <groupId>com.lexienglish</groupId>
     <artifactId>lexi-mind-be</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>LexiMindBE</name>
     <description>AI English Learning Assistant Backend</description>
-    
+
+    <!-- ================================================= -->
+    <!-- Properties (SAFE to upgrade later)               -->
+    <!-- ================================================= -->
     <properties>
         <java.version>21</java.version>
+
+        <!-- External libs -->
         <jjwt.version>0.12.3</jjwt.version>
+        <testcontainers.version>1.19.8</testcontainers.version>
     </properties>
-    
+
+    <!-- ================================================= -->
+    <!-- Dependency Management (BOMs)                      -->
+    <!-- ================================================= -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>testcontainers-bom</artifactId>
+                <version>${testcontainers.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- ================================================= -->
+    <!-- Dependencies                                     -->
+    <!-- ================================================= -->
     <dependencies>
-        <!-- Spring Boot Starters -->
+
+        <!-- 🌱 Spring -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-oauth2-client</artifactId>
         </dependency>
-        
-        <!-- Database -->
+
+        <!-- ⚡ WebClient -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+
+        <!-- 🗄 Database -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
@@ -64,8 +108,8 @@
             <artifactId>flyway-database-postgresql</artifactId>
             <version>10.4.1</version>
         </dependency>
-        
-        <!-- JWT -->
+
+        <!-- 🔐 JWT -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
@@ -83,25 +127,11 @@
             <version>${jjwt.version}</version>
             <scope>runtime</scope>
         </dependency>
-        
-        <!-- Utilities -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-        
-        <!-- API Documentation -->
+        <!-- 📘 OpenAPI -->
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>2.3.0</version>
-        </dependency>
-        
-        <!-- WebFlux for WebClient -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
         
         <!-- Resilience4j Circuit Breaker -->
@@ -110,8 +140,15 @@
             <artifactId>resilience4j-spring-boot3</artifactId>
             <version>2.2.0</version>
         </dependency>
-        
-        <!-- Testing -->
+
+        <!-- 🧰 Utilities -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.36</version>
+            <optional>true</optional>
+        </dependency>
+        <!-- 🧪 Testing -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -133,9 +170,26 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    
+
+    <!-- ================================================= -->
+    <!-- Build                                             -->
+    <!-- ================================================= -->
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.36</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

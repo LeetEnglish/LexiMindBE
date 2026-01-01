@@ -42,13 +42,13 @@ spring:
       client:
         registration:
           google:
-            client-id: ${GOOGLE_CLIENT_ID:}
-            client-secret: ${GOOGLE_CLIENT_SECRET:}
+            client-id: ${GOOGLE_CLIENT_ID:dummy-google-id}
+            client-secret: ${GOOGLE_CLIENT_SECRET:dummy-google-secret}
             scope: email, profile
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
           facebook:
-            client-id: ${FACEBOOK_CLIENT_ID:}
-            client-secret: ${FACEBOOK_CLIENT_SECRET:}
+            client-id: ${FACEBOOK_CLIENT_ID:dummy-facebook-id}
+            client-secret: ${FACEBOOK_CLIENT_SECRET:dummy-facebook-secret}
             scope: email, public_profile
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
         provider:

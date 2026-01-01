@@ -46,6 +46,7 @@ public class Exercise extends BaseEntity {
         FILL_IN_THE_BLANK,
         MULTIPLE_CHOICE,
         MATCHING,
-        TRUE_FALSE
+        TRUE_FALSE,
+        SHORT_ANSWER
     }
 }

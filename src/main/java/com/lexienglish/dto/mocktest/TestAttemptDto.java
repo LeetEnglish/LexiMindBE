@@ -20,14 +20,14 @@ public class TestAttemptDto {
     private LocalDateTime startedAt;
     private LocalDateTime completedAt;
     private String status;
-    private Double totalScore;
+    private java.math.BigDecimal totalScore;
     private Integer maxScore;
-    private Double percentageScore;
+    private java.math.BigDecimal percentageScore;
     private Integer timeSpentSeconds;
-    private Double readingScore;
-    private Double listeningScore;
-    private Double writingScore;
-    private Double speakingScore;
+    private java.math.BigDecimal readingScore;
+    private java.math.BigDecimal listeningScore;
+    private java.math.BigDecimal writingScore;
+    private java.math.BigDecimal speakingScore;
     private String feedback;
 
     public static TestAttemptDto fromEntity(TestAttempt attempt) {

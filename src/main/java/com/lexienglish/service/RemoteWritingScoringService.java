@@ -35,7 +35,7 @@ public class RemoteWritingScoringService {
         String essay = response.getUserAnswer();
 
         if (essay == null || essay.trim().isEmpty()) {
-            response.setScore(0.0);
+            response.setScore(java.math.BigDecimal.ZERO);
             response.setAiFeedback("No response provided.");
             return response;
         }
@@ -53,14 +53,14 @@ public class RemoteWritingScoringService {
         WritingScoringResponse aiResponse = remoteAiService.scoreWriting(request);
 
         // Map response to UserResponse entity
-        response.setScore(aiResponse.getOverallScore());
+        response.setScore(java.math.BigDecimal.valueOf(aiResponse.getOverallScore()));
         response.setAiFeedback(aiResponse.getFeedback());
 
         if (aiResponse.getDetails() != null) {
-            response.setGrammarScore(aiResponse.getDetails().getGrammarScore());
-            response.setVocabularyScore(aiResponse.getDetails().getVocabularyScore());
-            response.setCoherenceScore(aiResponse.getDetails().getCoherenceScore());
-            response.setTaskAchievementScore(aiResponse.getDetails().getTaskAchievementScore());
+            response.setGrammarScore(java.math.BigDecimal.valueOf(aiResponse.getDetails().getGrammarScore()));
+            response.setVocabularyScore(java.math.BigDecimal.valueOf(aiResponse.getDetails().getVocabularyScore()));
+            response.setCoherenceScore(java.math.BigDecimal.valueOf(aiResponse.getDetails().getCoherenceScore()));
+            response.setTaskAchievementScore(java.math.BigDecimal.valueOf(aiResponse.getDetails().getTaskAchievementScore()));
         }
 
         // Passing threshold (60%)
