@@ -126,7 +126,7 @@ class ChatServiceTest {
                 .processingTimeMs(100)
                 .build();
 
-        when(userRepository.findByEmail("test@example.com")).thenReturn(Optional.of(testUser));
+
         when(chatSessionRepository.findById(1L)).thenReturn(Optional.of(testSession));
         when(chatMessageRepository.save(any(ChatMessage.class))).thenAnswer(i -> i.getArgument(0));
         when(chatMessageRepository.findTop20ByChatSessionOrderByCreatedAtDesc(any())).thenReturn(List.of());
@@ -145,7 +145,7 @@ class ChatServiceTest {
     @Test
     void archiveSession_Success() {
         // Given
-        when(userRepository.findByEmail("test@example.com")).thenReturn(Optional.of(testUser));
+
         when(chatSessionRepository.findById(1L)).thenReturn(Optional.of(testSession));
         when(chatSessionRepository.save(any(ChatSession.class))).thenReturn(testSession);
 
