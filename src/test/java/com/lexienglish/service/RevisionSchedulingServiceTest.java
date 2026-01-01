@@ -46,7 +46,7 @@ class RevisionSchedulingServiceTest {
                 .front("Hello")
                 .back("Xin chào")
                 .user(testUser)
-                .easeFactor(2.5)
+                .easeFactor(java.math.BigDecimal.valueOf(2.5))
                 .interval(0)
                 .repetitions(0)
                 .build();

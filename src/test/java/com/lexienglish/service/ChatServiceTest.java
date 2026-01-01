@@ -55,7 +55,7 @@ class ChatServiceTest {
         testUser = User.builder()
                 .id(1L)
                 .email("test@example.com")
-                .name("Test User")
+                .fullName("Test User")
                 .build();
 
         testSession = ChatSession.builder()
