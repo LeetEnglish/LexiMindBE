@@ -22,6 +22,7 @@ class RemoteAiServiceImplTest {
     private WebClient webClient;
     private WebClient.RequestBodyUriSpec requestBodyUriSpec;
     private WebClient.RequestBodySpec requestBodySpec;
+    private WebClient.RequestHeadersSpec requestHeadersSpec;
     private WebClient.ResponseSpec responseSpec;
 
     @BeforeEach
@@ -29,6 +30,7 @@ class RemoteAiServiceImplTest {
         webClient = mock(WebClient.class);
         requestBodyUriSpec = mock(WebClient.RequestBodyUriSpec.class);
         requestBodySpec = mock(WebClient.RequestBodySpec.class);
+        requestHeadersSpec = mock(WebClient.RequestHeadersSpec.class);
         responseSpec = mock(WebClient.ResponseSpec.class);
 
         WebClient.Builder builder = mock(WebClient.Builder.class);
@@ -56,8 +58,8 @@ class RemoteAiServiceImplTest {
 
         when(webClient.post()).thenReturn(requestBodyUriSpec);
         when(requestBodyUriSpec.uri(anyString())).thenReturn(requestBodySpec);
-        when(requestBodySpec.bodyValue(any())).thenReturn(requestBodySpec);
-        when(requestBodySpec.retrieve()).thenReturn(responseSpec);
+        when(requestBodySpec.bodyValue(any())).thenReturn(requestHeadersSpec);
+        when(requestHeadersSpec.retrieve()).thenReturn(responseSpec);
         when(responseSpec.bodyToMono(WritingScoringResponse.class))
                 .thenReturn(Mono.just(expectedResponse));
 
@@ -93,8 +95,8 @@ class RemoteAiServiceImplTest {
 
         when(webClient.post()).thenReturn(requestBodyUriSpec);
         when(requestBodyUriSpec.uri(anyString())).thenReturn(requestBodySpec);
-        when(requestBodySpec.bodyValue(any())).thenReturn(requestBodySpec);
-        when(requestBodySpec.retrieve()).thenReturn(responseSpec);
+        when(requestBodySpec.bodyValue(any())).thenReturn(requestHeadersSpec);
+        when(requestHeadersSpec.retrieve()).thenReturn(responseSpec);
         when(responseSpec.bodyToMono(ChatCompletionResponse.class))
                 .thenReturn(Mono.just(expectedResponse));
 
